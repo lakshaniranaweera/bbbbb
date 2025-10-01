@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080, height=1920, initial-scale=1.0">
+<title>Landing + Registration + Thank You</title>
+
+<!-- Google Fonts: Dosis -->
+<link href="https://fonts.googleapis.com/css2?family=Dosis:wght@600;800&display=swap" rel="stylesheet">
+
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 1080px;
+    height: 1920px;
+    overflow: hidden;
+    font-family: 'Dosis', sans-serif;
+    background: url('back.jpg') no-repeat center center/cover;
+    background-attachment: fixed;
+  }
+
+  /* Shared logo + tagline */
+  .logo {
+    display: block;
+    margin: 100px auto 40px auto;
+    width: 580px;
+    position: relative;
+    z-index: 2;
+  }
+  .tagline {
+    text-align: center;
+    color: #7E57C6;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    font-family: 'Dosis', sans-serif;
+    z-index: 2;
+  }
+  .line1 { font-size: 80px; margin-bottom: 15px; font-weight: 800; }
+  .line2 { font-size: 80px; margin-bottom: 15px; font-weight: 600; }
+  .line3 { font-size: 75px; font-weight: 800; }
+
+  /* Clouds */
+  .bottom-cloud {
+    position: absolute;
+    bottom: -10px;
+    width: 600px;
+    z-index: 0;
+  }
+  .bottom-left { left: -40px; }
+  .bottom-right { right: 50px; }
+  .blink-cloud { animation: blinkZoomCloud 2s infinite; }
+  @keyframes blinkZoomCloud {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.7; }
+  }
+
+  .top-cloud {
+    position: absolute;
+    z-index: 0;
+    animation: blinkZoom 1.5s infinite;
+  }
+  .top-left { top: 20px; left: -300px; width: 100px; }
+  .top-right { top: 150px; right: -360px; width: 150px; }
+
+  /* Side images */
+  .side-img {
+    position: absolute;
+    animation: blinkZoom 1s infinite;
+    z-index: 2;
+  }
+  .side-left { top: 70px; left: 30px; width: 290px; }
+  .side-right { top: 370px; right: 30px; width: 350px; }
+  @keyframes blinkZoom {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); opacity: 0.7; }
+  }
+
+  /* Buttons */
+  .register-btn, .submit-btn {
+    font-family: 'Dosis', sans-serif;
+    font-weight: 800;
+  }
+  .register-btn {
+    padding: 25px 90px;
+    font-size: 50px;
+    background: #7E57C6;
+    color: #fff;
+    border: none;
+    border-radius: 55px;
+    cursor: pointer;
+    position: absolute;
+    bottom: 450px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+  }
+
+  /* Registration Form */
+  .registration-form {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1080px;
+    height: 1920px;
+    z-index: 10;
+    background: rgba(255,255,255,0.2);
+    overflow-y: auto;
+    box-sizing: border-box;
+  }
+
+  .form-mask {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+    padding: 50px 40px;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  .registration-form img { 
+    width: 480px; 
+    margin-bottom: 40px; 
+  }
+
+  .registration-form label {
+    font-size: 50px;
+    font-weight: 800;
+    color: #7E57C6;
+    margin-top: 20px;
+    text-align: left;
+    width: 100%;
+  }
+
+  .registration-form input[type="text"],
+  .registration-form input[type="tel"],
+  .registration-form select {
+    width: 100%;
+    padding: 25px;
+    margin: 15px 0 30px 0;
+    font-size: 40px;
+    border-radius: 20px;
+    border: 2px solid #7E57C6;
+    box-sizing: border-box;
+  }
+
+  /* Children ages */
+  .children-ages { display: none; width: 100%; }
+  .age-row {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  .age-row input {
+    flex: 1;
+    font-size: 35px;
+    text-align: center;
+    border: 2px solid #7E57C6;
+    border-radius: 15px;
+    padding: 20px;
+  }
+
+  /* Consent */
+  .consent-section {
+    margin-top: 30px;
+    font-size: 28px;
+    line-height: 1.4;
+    color: #333;
+    text-align: left;
+    background: rgba(255,255,255,0.6);
+    padding: 20px;
+    border-radius: 15px;
+  }
+  .consent-section input[type="checkbox"] {
+    transform: scale(2);
+    margin-right: 15px;
+  }
+  .consent-text {
+    font-size: 32px;
+    font-weight: 600;
+    color: #7E57C6;
+  }
+
+  /* Submit */
+  .submit-btn {
+    margin-top: 15px;
+    font-size: 45px;
+    padding: 25px 70px;
+    background: #7E57C6;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+  }
+
+  /* Thank You */
+  .thankyou-page {
+    display: none;
+    width: 1080px;
+    height: 1920px;
+    position: absolute;
+    top: 0; left: 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- Landing -->
+<div id="landingContent">
+  <img src="logo.png" alt="Logo" class="logo">
+  <div class="tagline">
+    <div class="line1">You are here to meet</div>
+    <div class="line2">Sri Lanka's First Ever</div>
+    <div class="line3">GEN AI DIAPER EXPERT</div>
+  </div>
+  <button class="register-btn" onclick="showForm()">Register</button>
+  <img src="c1.png" alt="Left Image" class="side-img side-left">
+  <img src="c2.png" alt="Right Image" class="side-img side-right">
+  <img src="c2.png" alt="Bottom Left Cloud" class="bottom-cloud bottom-left blink-cloud">
+  <img src="c2.png" alt="Bottom Right Cloud" class="bottom-cloud bottom-right blink-cloud">
+</div>
+
+<!-- Registration -->
+<div class="registration-form" id="registrationForm">
+  <img src="c1.png" alt="Top Left Cloud" class="top-cloud top-left">
+  <img src="c2.png" alt="Top Right Cloud" class="top-cloud top-right">
+
+  <div class="form-mask">
+    <img src="logo.png" alt="Logo">
+    <label for="name">Full Name</label>
+    <input type="text" placeholder="Enter Your Name" id="name">
+    <label for="phone">Phone Number</label>
+    <input type="tel" placeholder="Enter Your Phone Number" id="phone">
+    <label for="childrenDropdown">Are you a parent? </label>
+    <select id="childrenDropdown" onchange="showAges(this.value)">
+      <option value="">Select</option>
+      <option value="yes">Yes</option>
+      <option value="no">No</option>
+    </select>
+    <div class="children-ages" id="childrenAges">
+      <div class="age-row">
+        <!-- <input type="text" placeholder="Child">
+        <input type="text" placeholder="Child Age">
+        <input type="text" placeholder="Child Age">
+        <input type="text" placeholder="Child Age"> -->
+      </div>
+    </div>
+
+    <!-- Consent -->
+    <div class="consent-section">
+      <label>
+        <input type="checkbox" id="consentCheckbox">
+        <span class="consent-text">
+           I consent to the use of my content, images, and/or videos captured at this event for marketing and promotional purposes across all media platforms, including but not limited to television, digital, social media, print, and websites.
+        </span>
+      </label>
+    </div>
+    <button class="submit-btn" onclick="submitForm()">Submit</button>
+  </div>
+
+  <!-- Clouds inside registration
+  <img src="c2.png" alt="Bottom Left Cloud" class="bottom-cloud bottom-left blink-cloud">
+  <img src="c2.png" alt="Bottom Right Cloud" class="bottom-cloud bottom-right blink-cloud"> -->
+</div>
+
+<!-- Thank You -->
+<div class="thankyou-page" id="thankYouPage">
+  <img src="logo.png" alt="Logo" class="logo">
+  <div class="tagline">
+    <br><br><br><br><br>
+    <div class="line1">THANK YOU FOR REGISTERING</div><br><br><br><br><br>
+    <div class="line2">You are all set to meet <br>Sri Lanka’s First Ever</div>
+    <div class="line3">GEN AI DIAPER EXPERT </div>
+  </div>
+  <img src="c1.png" alt="Left Image" class="side-img side-left">
+  <img src="c2.png" alt="Right Image" class="side-img side-right">
+  <img src="c2.png" alt="Bottom Left Cloud" class="bottom-cloud bottom-left blink-cloud">
+  <img src="c2.png" alt="Bottom Right Cloud" class="bottom-cloud bottom-right blink-cloud">
+</div>
+
+<script>
+const landingContent = document.getElementById('landingContent');
+const registrationForm = document.getElementById('registrationForm');
+const thankYouPage = document.getElementById('thankYouPage');
+const childrenAges = document.getElementById('childrenAges');
+const consentCheckbox = document.getElementById('consentCheckbox');
+
+function showForm() {
+  landingContent.style.display = 'none';
+  registrationForm.style.display = 'block';
+}
+
+function showAges(value) {
+  childrenAges.style.display = value === "yes" ? 'block' : 'none';
+}
+
+async function submitForm(){
+  if(!consentCheckbox.checked){
+    alert("Please consent to continue.");
+    return;
+  }
+
+  const formData = {
+    name: document.getElementById('name').value,
+    phone: document.getElementById('phone').value,
+    haveChildren: document.getElementById('childrenDropdown').value,
+    consent: consentCheckbox.checked ? "Yes" : "No"
+  };
+  if(formData.haveChildren === "yes"){
+    formData.ages = Array.from(childrenAges.querySelectorAll('input')).map(i=>i.value).join(', ');
+  }
+
+  // reset
+  document.getElementById('name').value = '';
+  document.getElementById('phone').value = '';
+  document.getElementById('childrenDropdown').value = '';
+  consentCheckbox.checked = false;
+  childrenAges.style.display = 'none';
+  Array.from(childrenAges.querySelectorAll('input')).forEach(i => i.value = '');
+
+  // show thankyou
+  setTimeout(() => {
+    registrationForm.style.display = 'none';
+    thankYouPage.style.display = 'block';
+    setTimeout(() => {
+      thankYouPage.style.display = 'none';
+      landingContent.style.display = 'block';
+    }, 7000);
+  }, 1000);
+
+  // send to Google Sheets
+  const scriptURL = "https://script.google.com/macros/s/AKfycbxPe5ChIpapW8vHfDtJL53x_XZGt-48K74w2WwFXkKEvWfb75HLnsEgHJOE-6fN2UgRlw/exec";
+  try {
+    await fetch(scriptURL, {
+      method: "POST",
+      body: JSON.stringify(formData)
+    });
+  } catch(err) {
+    console.error("Data submission failed:", err);
+  }
+}
+</script>
+</body>
+</html>
